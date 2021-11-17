@@ -8,18 +8,21 @@ import { getFirestore } from 'firebase/firestore';
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBWAmFwf0UcUf0d6dqk_imNYG0w3gLchgA",
-  authDomain: "dashdemo-d627b.firebaseapp.com",
-  projectId: "dashdemo-d627b",
-  storageBucket: "dashdemo-d627b.appspot.com",
-  messagingSenderId: "34001233054",
-  appId: "1:34001233054:web:56a1eec26fc6d6d45ac78f"
-};
 
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBHfgJOBT1lEobMsiIJy9BduN5dc9QVmSI",
+  authDomain: "cundashboard-profesores.firebaseapp.com",
+  projectId: "cundashboard-profesores",
+  storageBucket: "cundashboard-profesores.appspot.com",
+  messagingSenderId: "1054653493805",
+  appId: "1:1054653493805:web:327244baf56b4fde34fea4"
+};
 // Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
 export const auth = getAuth();
 export default app;
+
+

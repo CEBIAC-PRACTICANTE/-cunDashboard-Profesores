@@ -4,145 +4,75 @@ import monster from './assets/monster1.png';
 import lottie from 'lottie-web';
 import googleImage from './assets/google.png';
 import monster1 from './assets/monster1.png';
-
-
+import logoCun from './assets/logoCun.png';
+import firebase from './Firebase/firebase';
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, GoogleAuthProvider} from "firebase/auth";
+import {signInGoogle} from './Firebase/auth';
+const auth = getAuth(firebase);
+const googleProvider = new GoogleAuthProvider();
 const Login = () => {
 
-
-
     const [estaRegistrandose, setEstaRegistrandose] = useState(false);
+
+    async function submitHandler(e){
+        e.preventDefault();
+        const correo = e.target.formBasicEmail.value;
+        const contra = e.target.formBasicPassword.value;
+
+
+        if (estaRegistrandose){
+            const usuario = await createUserWithEmailAndPassword(auth, correo, contra);
+            console.log(usuario);
+        } else {
+            signInWithEmailAndPassword(auth, correo, contra);
+        }
+
+    }
+
+
     return (
-
-        <div class="container bg-white  w-80 mt-5 shadow">
+        <Container>
+        <div class="container w-75 bg-white mt-5 shadow">
             <div class="row align-items-stretch">
-                <div class="col d-flex justify-content-center d-none d-lg-block col-md-5 col-lg-5 col-lg-6">
-                <Image src={monster1} class=""/>
+                <div class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6">
+
                 </div>
-                <div class="col bg-white p-5" >
-                    <div class="text-end">
-                        <img src=""/>
+                <div class="col">
+                <div class="text-center pt-5">
+                    <Image src={logoCun} width="80" />
                     </div>
-                    <h2 class="fw-bold text-center py-5">Bienvenido</h2>
+                    <h2 class="fw-bold text-center py-5">{estaRegistrandose ? "Registrar" : "Iniciar sesión"}</h2>
 
+                    <Form onSubmit={submitHandler}>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Correo electrónico</Form.Label>
+                            <Form.Control type="email" placeholder="Enter email" />
+                        </Form.Group>
 
-                    <Form action="#">
-                    <h1> {estaRegistrandose ? "Registrame" : "Iniciar sesión"} </h1>
-                    <Form>
-                             <Form.Group className="mb-3" controlId="formBasicEmail">
-                                 <Form.Label>Correo</Form.Label>
-                                 <Form.Control type="email" placeholder="Correo" />
-                             </Form.Group>
-
-                             <Form.Group className="mb-3" controlId="formBasicPassword">
-                                 <Form.Label>Contaseña</Form.Label>
-                                 <Form.Control type="password" placeholder="Contraseña" />
-                             </Form.Group>
-                             <br/>
-
-                                <div class="d-grid">
-                                     <Button  type="submit" class="btn btn-primary">
-                                         {estaRegistrandose ? "Registrame" : "Iniciar sesión"}
-                                     </Button>
-                                 </div>
-                                 <br/>
-                                 <div class="d-grid">
-                                 <Button type="submit" class="btn btn-outline-primary w-100 my-1" variant="success" onClick = {()=> setEstaRegistrandose(!estaRegistrandose)}>
-                                                {estaRegistrandose
-                                                ? "¿Ya tienes cuenta? Iniciar sesión " 
-                                                : "¿No tienes cuenta? Regístrate"}
-                                            </Button> 
-                                </div>
-                         </Form>   
-                    
-                        <br/>
-                            
-                        
-                        </Form>
-
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Contraseña</Form.Label>
+                            <Form.Control type="password" placeholder="Password" />
+                        </Form.Group>
                         <div class="d-grid">
-                                    <div class="row text-center">
-                                        <div class="col-12">Iniciar Sesión</div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="d-grid"> 
-                                        <Button class="btn btn-outline-primary w-100 my-1">
-                                            <div class="row align-items-center">
-                                                <div class="col-2 d-none d-md-block d-none d-md-block">
-                                                <Image src={googleImage} width="20" alt=""/>
-                                                </div>
-
-                                                <div class="col-10 text-center">
-                                                Ingresar con Google
-                                                </div>
-                                            </div>
-                                        </Button>
-                                        </div>
-                                    </div>
-                                
+                        <Button variant="primary" type="submit">
+                            {estaRegistrandose ? "Registrar" : "Iniciar"}
+                        </Button>
                         </div>
-
+                        <br/>
+                        <div class="d-grid my-3">
+                        <Button  variant="primary" onClick={signInGoogle}>Login Google</Button>
+                        </div>
+                        <div class="d-grid my-3">
+                        <Button variant="danger" onClick={()=> setEstaRegistrandose(!estaRegistrandose)}>
+                            {estaRegistrandose ? "Iniciar sesión" : "¿Usuario nuevo? Registrate"}
+                        </Button>
+                        </div>
+                    </Form>
                 </div>
             </div>
         </div>
-
-
-
-        // <div style={{display: 'flex', justifyContent: 'center', alignItemns: 'center, '}}>
-        // <Card style={{ width: '50rem', height: '30rem' }}>
-        //     <Container>
-                
-        //         <Row>
-                    
-        //             <Col xs={6}>
-        //                 <Stack gap={3}>
-        //                 <h1> {estaRegistrandose ? "Registrame" : "Iniciar sesión"} </h1>
-        //                 <Form>
-        //                     <Form.Group className="mb-3" controlId="formBasicEmail">
-        //                         <Form.Label>Correo</Form.Label>
-        //                         <Form.Control type="email" placeholder="Correo" />
-        //                     </Form.Group>
-
-        //                     <Form.Group className="mb-3" controlId="formBasicPassword">
-        //                         <Form.Label>Contaseña</Form.Label>
-        //                         <Form.Control type="password" placeholder="Contraseña" />
-        //                     </Form.Group>
-        //                     <Button variant="primary" type="submit">
-        //                         {estaRegistrandose ? "Registrame" : "Iniciar sesión"}
-        //                     </Button>
-        //                 </Form>    
-        //                 <Button variant="primary" type="submit" style={{width: "300px"}}>
-        //                         Acceder con Google
-        //                     </Button>       
-
-        //                     <Button 
-        //                     style={{width: "300px"}}
-        //                     variant="secondary" 
-        //                     onClick = {()=> setEstaRegistrandose(!estaRegistrandose)}
-        //                     >
-        //                         {estaRegistrandose
-        //                         ? "¿Ya tienes cuenta? Iniciar sesión" 
-        //                         : "¿No tienes cuenta? Regístrate"}
-        //                     </Button>
-                            
-        //                  </Stack>
-        //              </Col>
-
-        //              <Col>
-        //                     <div style={{display: 'flex', justifyContent: 'center', alignItemns: 'center, '}}>HOLAAFvfdbgdfsgdsfggsdfgssdfgsdfASDFSD</div>
-                     
-        //             </Col>
-        //         </Row>
-
-    
-    
-
-        //     </Container>      
-        // </Card>
-
-        // </div>
-
-    )
+        </Container>
+    );
 };
 
 export default Login;

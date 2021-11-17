@@ -8,7 +8,11 @@ import useStyles from './styles';
 import {catedraCategories, plantaCategories} from '../../../../constants/categories';
 import CustomizedSnackbar from '../../../Snackbar/Snakcbar';
 import {escribirDatos} from '../../../../Firebase/firestore';
-import {signInGoogle} from '../../../../Firebase/auth';
+// import {signInGoogle} from '../../../../Firebase/auth';
+import firebase from '../../../../Firebase/firebase';
+import {getAuth, signOut} from 'firebase/auth'
+
+const auth = getAuth(firebase);
 
 const initialState = {
     amount: '',
@@ -74,7 +78,8 @@ const Form = () => {
            </Grid>
            <Button className={classes.button} variant="outlined" color="success" fullWidth onClick={createSubject} >Agregar</Button>
            <Button className={classes.button} variant="contained" color="primary" fullWidth onClick={guardarActividades} >Guardar</Button>
-           <Button className={classes.button} variant="contained" color="secondary" fullWidth onClick={signInGoogle}>Login Google</Button>
+           <Button className={classes.button} variant="contained" color="primary" fullWidth onClick={() => signOut(auth)}>Cerrar sesión</Button>
+           {/* <Button className={classes.button} variant="contained" color="secondary" fullWidth onClick={signInGoogle}>Login Google</Button> */}
 
        </Grid>
     )

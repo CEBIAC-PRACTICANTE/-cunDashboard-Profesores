@@ -5,6 +5,7 @@ import Main from './components/Details/Main/Main'
 import Details from './components/Details/Details';
 import useStyles from './styless';
 import { Router } from '@material-ui/icons';
+import firebase from './Firebase/firebase';
 
 const Home = () => {
     const classes = useStyles();

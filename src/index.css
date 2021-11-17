@@ -7,3 +7,6 @@ body{
     background: url(./assets/Background.png);
     background-size: cover;
 }
+.bg{
+    background: url(./assets/monster1.png);
+}
